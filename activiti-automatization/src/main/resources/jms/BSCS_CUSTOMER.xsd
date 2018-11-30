@@ -1,0 +1,51 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.fte.com/FTE_PC_MDW/Recursos/Esquemas/26099/Peticion_26099.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="XML_Peticion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:string" name="IDCuentaSIEBEL"/>
+        <xs:element type="xs:string" name="MSISDN"/>
+        <xs:element type="xs:string" name="TipoDocumento"/>
+        <xs:element type="xs:string" name="NumeroDocumento"/>
+        <xs:element name="DatosCliente" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="Nombre"/>
+              <xs:element type="xs:string" name="Valor"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ContactoCliente" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="Tipo"/>
+              <xs:element name="Atributos" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="Nombre"/>
+                    <xs:element type="xs:string" name="Valor"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DatosPagoCliente" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="Nombre"/>
+              <xs:element type="xs:string" name="Valor"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DatosAdicionales" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="Nombre"/>
+              <xs:element type="xs:string" name="Valor"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

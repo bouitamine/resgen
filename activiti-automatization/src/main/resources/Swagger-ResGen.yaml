@@ -1,0 +1,240 @@
+swagger: '2.0'
+info:
+  description: This is a API REST field for RESGEN proyect.
+  version: 1.0.0
+  title: Swagger RESGEN
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+host: petstore.swagger.io
+basePath: /v1
+tags:
+  - name: RESGEN
+    description: RESGEN API
+    externalDocs:
+      description: Find out more
+      url: 'http://swagger.io'
+schemes:
+  - https
+  - http
+paths:
+  /api/resgen/create:
+    post:
+      tags:
+        - generate
+      summary: Create Customer/Contract in OSP BAU
+      description: ''
+      operationId: generate
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - in: body
+          name: generate
+          description: Resource used
+          required: true
+          schema:
+            $ref: '#/definitions/Generate'
+      responses:
+        '405':
+          description: Invalid input
+  /api/resgen/clean:
+    put:
+      tags:
+        - clean
+      summary: Clean the resource in systems OSP
+      operationId: clean
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: env
+          in: path
+          required: true
+          type: string
+          enum:
+            - UAT
+            - INT
+        - name: liberateSIGMA
+          in: path
+          required: true
+          type: boolean
+          default: false
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/Systems'
+      responses:
+        '400':
+          description: Invalid user supplied
+        '404':
+          description: User not found
+securityDefinitions:
+  petstore_auth:
+    type: oauth2
+    authorizationUrl: 'http://petstore.swagger.io/oauth/dialog'
+    flow: implicit
+    scopes:
+      'write:pets': modify pets in your account
+      'read:pets': read your pets
+  api_key:
+    type: apiKey
+    name: api_key
+    in: header
+definitions:
+  Systems:
+    type: object
+    properties:
+      BSCS:
+        type: boolean
+        default: true
+      TA:
+        type: boolean
+        default: true
+      OCS:
+        type: boolean
+        default: true
+      INTRANSIT:
+        type: boolean
+        default: true
+      PERSA:
+        type: boolean
+        default: false
+      TAO:
+        type: boolean
+        default: true
+      SEDNA:
+        type: boolean
+        default: true
+      OPENCOBROS:
+        type: boolean
+        default: true
+      COCO:
+        type: boolean
+        default: true
+      RESER:
+        type: boolean
+        default: true
+      SIGMA:
+        type: boolean
+        default: true
+    xml:
+      name: Systems
+  Resource:
+    type: object
+    properties:
+      msisdn:
+        type: string
+      imsi:
+        type: string
+      iccid:
+        type: string
+    xml:
+      name: Resource
+  Tariff:
+    type: object
+    required:
+      - shdes
+      - market
+    properties:
+      shdes:
+        type: string
+      market:
+        type: string
+        default: res
+        enum:
+          - res
+          - lc
+          - pre
+          - love
+          - emp
+          - mfo
+    xml:
+      name: Tariff
+  Customer:
+    type: object
+    required:
+      - PRGCODE
+      - IdNumber
+      - typeIdNumber
+    properties:
+      PRGCODE:
+        type: string
+        description: segment of customer
+        enum:
+          - POSTRESD
+          - PRE
+          - POSTAUT
+          - POSTEMPB
+          - POSTRESLC
+      exist:
+        type: boolean
+      IdNumber:
+        type: string
+        description: 'DNI, PASSPORT, NIE number'
+      typeIdNumber:
+        type: string
+        description: type of document
+        enum:
+          - PASSPORT
+          - NIE
+          - DNI
+      name:
+        type: string
+        default: John
+      lastname:
+        type: string
+        default: Smith
+  Generate:
+    type: object
+    required:
+      - resource
+      - systems
+      - tariff
+      - profile
+      - customer
+    properties:
+      resource:
+        $ref: '#/definitions/Resource'
+      systems:
+        $ref: '#/definitions/Systems'
+      tarrif:
+        $ref: '#/definitions/Tariff'
+      customer:
+        $ref: '#/definitions/Customer'
+      env:
+        type: string
+        enum:
+          - UAT
+          - INT
+        default:
+          - UAT
+      profile:
+        type: string
+        enum:
+          - BAU
+          - CIMA
+        default: BAU
+    xml:
+      name: Generate
+  ApiResponse:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      type:
+        type: string
+      message:
+        type: string
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'

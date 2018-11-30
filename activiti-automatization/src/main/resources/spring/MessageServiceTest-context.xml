@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context        
+		http://www.springframework.org/schema/context/spring-context.xsd">
+
+<!-- 	<context:property-placeholder location="classpath:test.properties" /> -->
+
+	<bean id="jmsConnectionFactory" class="com.tibco.tibjms.TibjmsConnectionFactory">
+		<property name="serverUrl" value="tcp://10.132.72.208:27422"  />
+	</bean>
+	
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="jmsConnectionFactory" />
+		<property name="defaultDestinationName" value="queue.sample" />		
+		<property name="explicitQosEnabled" value="true" />
+<!-- 	<property name="timeToLive" value="3000" /> -->
+		<property name="deliveryMode" value="2" />
+		<property name="sessionAcknowledgeModeName" value="CLIENT_ACKNOWLEDGE" />
+		<property name="sessionTransacted" value="false" />
+	</bean>
+
+<!-- 	<bean id="messageService" class="com.tibco.mcqueary.ems.samples.springjms.MessageService" /> -->
+
+</beans>

@@ -1,0 +1,30 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.fte.com/FTE_PC_MDW/Recursos/Esquemas/26097/Peticion_26097.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="XML_Peticion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:string" name="IDCuentaBSCS"/>
+        <xs:element type="xs:string" name="ICCID"/>
+        <xs:element type="xs:string" name="MSISDN"/>
+        <xs:element type="xs:string" name="Accion"/>
+        <xs:element type="xs:string" name="TarifaVoz"/>
+        <xs:element type="xs:string" name="TarifaDatos"/>
+        <xs:element type="xs:byte" name="RazonAlta"/>
+        <xs:element name="Productos">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="IDProducto"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DatosAdicionales" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="Nombre"/>
+              <xs:element type="xs:string" name="Valor"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
