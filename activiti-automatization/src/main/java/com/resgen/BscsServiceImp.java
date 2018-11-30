@@ -89,6 +89,7 @@ public class BscsServiceImp implements BscsService {
     jmsTemplate2.convertAndSend(ACTIVE_MQ_LOCAL_QUEUE, actionmap);
 	}
 	  
+  
 	@Override
 	public void insertResource(Resource resource) {
 		bscsDao.insertResource(resource);
