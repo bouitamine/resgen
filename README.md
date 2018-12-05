@@ -1,0 +1,2 @@
+# resgen
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/73f250aca645434698d43a1a0e3f48d7)](https://app.codacy.com/app/bouitamine/resgen?utm_source=github.com&utm_medium=referral&utm_content=bouitamine/resgen&utm_campaign=Badge_Grade_Dashboard)
