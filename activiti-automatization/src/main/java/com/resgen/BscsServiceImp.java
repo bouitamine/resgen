@@ -48,7 +48,7 @@ public class BscsServiceImp implements BscsService {
 	private static final String POSTAUT = "POSTAUT";
 	private static final String SPACE = "";
 	private static final String QUEUE_BSCS_CUSTOMER_INT = "BSCS-CUSTOMER_INT";
-	private static final String ACTIVE_MQ_LOCAL_QUEUE = "RESMAN.COLA.OUT";
+	private static final String ACTIVE_MQ_LOCAL_QUEUE = "RESGEN.COLA.OUT";
 	
 	
 	
@@ -71,6 +71,10 @@ public class BscsServiceImp implements BscsService {
 	private JmsTemplate jmsTemplate2;	
 	
 	@Autowired
+	@Qualifier("connect3")
+	private JmsTemplate jmsTemplate3;
+	
+	@Autowired
 	private Queue queue;
 	
 	  @Override
@@ -89,6 +93,17 @@ public class BscsServiceImp implements BscsService {
     jmsTemplate2.convertAndSend(ACTIVE_MQ_LOCAL_QUEUE, actionmap);
 	}
 	  
+  
+	@Override
+	public void sendMessageActiveMQ() {
+		jmsTemplate3.send(queue, new MessageCreator() {
+			public Message createMessage(Session session) throws JMSException {
+				Message message = session.createTextMessage("Mensaje JMS enviado a la cola ActiveMQ de de salida de RESGEN ");
+				message.setJMSCorrelationID("01101987");
+				return message;
+			}
+		});
+	}
   
 	@Override
 	public void insertResource(Resource resource) {
