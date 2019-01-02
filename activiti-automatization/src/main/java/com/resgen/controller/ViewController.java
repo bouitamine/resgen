@@ -74,6 +74,12 @@ public class ViewController {
 			 bscsService.sendMessageToTibcoUAT();
 		        return "sendTibcoJMS to UAT";
 		    }
+		 
+		 @RequestMapping(value = "/api/resgen/sendMessageActiveMQ", method = RequestMethod.GET, produces = org.springframework.http.MediaType.APPLICATION_JSON_VALUE)
+		    public String sendActiveMQ(){
+			 bscsService.sendMessageActiveMQ();;
+		        return "send JMS to ActiveMQ";
+		    }
 	}
 
 }

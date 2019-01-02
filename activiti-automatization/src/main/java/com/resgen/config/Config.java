@@ -3,6 +3,7 @@ package com.resgen.config;
 import javax.jms.JMSException;
 import javax.jms.Queue;
 
+import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -20,18 +21,21 @@ public class Config {
     
     @Value("${tibco.UAT.server-url}")
     private String UATserverUrl;
+    
+    @Value("${ActiveMQ.server-url}")
+    private String brokerUrl;
 
     @Bean
     public Queue queue() {
         return new ActiveMQQueue("RESGEN.QUEUE.IN");
     }
 
-//    @Bean
-//    public ActiveMQConnectionFactory activeMQConnectionFactory() {
-//        ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory();
-//        factory.setBrokerURL(brokerUrl);
-//        return factory;
-//    }
+    @Bean
+    public ActiveMQConnectionFactory activeMQConnectionFactory() {
+        ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory();
+        factory.setBrokerURL(brokerUrl);
+        return factory;
+    }
     
     @Primary
     @Bean
@@ -61,5 +65,10 @@ public class Config {
     @Bean(name = "connect2")
     public JmsTemplate jmsTemplate2() throws JMSException {
         return new JmsTemplate(tibjmsConnectionFactoryUAT());
+    }
+    
+    @Bean(name = "connect3")
+    public JmsTemplate jmsTemplateActiveMQ() throws JMSException {
+        return new JmsTemplate(activeMQConnectionFactory());
     }
 }

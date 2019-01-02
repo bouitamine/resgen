@@ -17,5 +17,6 @@ public interface BscsService {
 //	void sendMessageToTibcoEMS();
 	void sendMessageToTibcoUAT3();
 	void sendMessageToTibcoUAT();
+	void sendMessageActiveMQ();
 	
 }
